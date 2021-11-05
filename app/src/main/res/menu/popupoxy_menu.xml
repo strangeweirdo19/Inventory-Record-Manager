@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dropdown_menu1"
+        android:title="Large Adult"
+        android:visible="true"
+        app:showAsAction="ifRoom" >
+        <menu tools:ignore="ExtraText">
+            <item
+                android:id="@+id/dropdown_menu34"
+                android:title="Type A"/>
+            <item
+                android:id="@+id/dropdown_menu35"
+                android:title="Type B"/>
+            <item
+                android:id="@+id/dropdown_menu36"
+                android:title="Type C"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/dropdown_menu2"
+        android:title="Small Adult"
+        android:visible="true"
+        app:showAsAction="ifRoom" >
+    <menu tools:ignore="ExtraText">
+        <item
+            android:id="@+id/dropdown_menu37"
+            android:title="Type A"/>
+        <item
+            android:id="@+id/dropdown_menu38"
+            android:title="Type B"/>
+        <item
+            android:id="@+id/dropdown_menu39"
+            android:title="Type C"/>
+
+
+    </menu>
+    </item>
+    <item
+        android:id="@+id/dropdown_menu3"
+        android:title="Pediatric"
+        android:visible="true"
+        app:showAsAction="ifRoom" >
+        <menu tools:ignore="ExtraText">
+            <item
+                android:id="@+id/dropdown_menu40"
+                android:title="Type A"/>
+            <item
+                android:id="@+id/dropdown_menu41"
+                android:title="Type B"/>
+            <item
+                android:id="@+id/dropdown_menu42"
+                android:title="Type C"/>
+
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/dropdown_menu4"
+        android:title="Infant"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/dropdown_menu5"
+        android:title="Neonate"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/dropdown_menu6"
+        android:title="Dual Chamber CVR"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/dropdown_menu11"
+        android:title="Adult"
+        android:visible="true"
+        app:showAsAction="ifRoom" >
+        <menu tools:ignore="ExtraText">
+            <item
+                android:id="@+id/dropdown_menu43"
+                android:title="Type 1"/>
+            <item
+                android:id="@+id/dropdown_menu44"
+                android:title="Type 2"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/dropdown_menu12"
+        android:title="Small Adult"
+        android:visible="true"
+        app:showAsAction="ifRoom" >
+        <menu tools:ignore="ExtraText">
+            <item
+                android:id="@+id/dropdown_menu45"
+                android:title="Type 1"/>
+            <item
+                android:id="@+id/dropdown_menu46"
+                android:title="Type 2"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/dropdown_menu13"
+        android:title="Pediatric"
+        android:visible="true"
+        app:showAsAction="ifRoom" >
+        <menu tools:ignore="ExtraText">
+            <item
+                android:id="@+id/dropdown_menu47"
+                android:title="Type 1"/>
+            <item
+                android:id="@+id/dropdown_menu48"
+                android:title="Type 2"/>
+        </menu>
+    </item>
+
+</menu>

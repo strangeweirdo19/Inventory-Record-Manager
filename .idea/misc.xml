@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/activity_mainmenu.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/cannule_menu.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/consumable_menu.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/cpg.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/cpgpopup.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/diagnosis.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/fluid.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.22" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/frame_textview.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/orders.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/others.xml" value="0.1" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/patient_details.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/patients.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/personal_details.xml" value="0.201765447667087" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/preoplab.xml" value="0.22" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/prime.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/table.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/layout/timer.xml" value="0.12" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/aortic.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/aortice.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/dssvc.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/fema.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/femv.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/inskit.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/ivcma.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/ivcst.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/popupecmo.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/popupecmoset_menu.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/popupecmoxy_menu.xml" value="0.34347826086956523" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/popupexco.xml" value="1.0" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/popupoxy_menu.xml" value="0.1" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/svcma.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/menu/svcst.xml" value="0.184375" />
+        <entry key="..\:/Users/kirti/Documents/MyApp/app/src/main/res/xml/file_paths.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

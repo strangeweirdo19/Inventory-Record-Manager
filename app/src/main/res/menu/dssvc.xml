@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="28 or 36F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="29 or 29F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="29 or 37F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="32 or 40F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="36 or 45F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="34 or 46F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="36 or 51F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>

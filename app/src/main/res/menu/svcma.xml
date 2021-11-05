@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="10F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="12F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="14F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="16F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="18F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="20F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="22F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="24F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="26F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+    <item
+        android:title="28F"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>
