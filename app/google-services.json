@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "764943282966",
+    "firebase_url": "https://database-f7696-default-rtdb.firebaseio.com",
+    "project_id": "database-f7696",
+    "storage_bucket": "database-f7696.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:764943282966:android:198287321f32fc44881637",
+        "android_client_info": {
+          "package_name": "com.kitty.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "764943282966-5t7632u8mjrcallnlo7rkabsat78k6og.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfGllAU6t_EvmUaQnln7t_9SEb9WWtz_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "764943282966-5t7632u8mjrcallnlo7rkabsat78k6og.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
