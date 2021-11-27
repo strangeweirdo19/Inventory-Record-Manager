@@ -60,7 +60,7 @@ public class patients extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    name.setHint(value);
+                    name.setText(value);
             }
 
             @Override
@@ -75,7 +75,7 @@ public class patients extends AppCompatActivity {
                 String value = "null";
                 value = dataSnapshot.getValue(String.class);
                 if (!Objects.equals(value, "null"))
-                    age.setHint(value);
+                    age.setText(value);
             }
 
             @Override
@@ -91,7 +91,7 @@ public class patients extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    hospnum.setHint(value);
+                    hospnum.setText(value);
             }
 
             @Override
@@ -107,7 +107,7 @@ public class patients extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    date.setHint(value);
+                    date.setText(value);
             }
 
             @Override
@@ -196,7 +196,7 @@ public class patients extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    type.setHint(value);
+                    type.setText(value);
             }
 
             @Override

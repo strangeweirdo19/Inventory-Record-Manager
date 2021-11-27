@@ -3,6 +3,8 @@ package com.kitty.myapp;
 import static java.lang.Math.abs;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,6 +49,18 @@ public class fluidmenu extends AppCompatActivity {
         totalloss = findViewById(R.id.totalloss);
         totalfluid = findViewById(R.id.fluid);
         lossgain = findViewById(R.id.toggleButton3);
+        prime.addTextChangedListener(textWatcher);
+        blood.addTextChangedListener(textWatcher);
+        fluids.addTextChangedListener(textWatcher);
+        diuretics.addTextChangedListener(textWatcher); 
+        hco3.addTextChangedListener(textWatcher);
+        cpg.addTextChangedListener(textWatcher);
+        drugs.addTextChangedListener(textWatcher);
+        pump.addTextChangedListener(textWatcher); 
+        surgicalloss.addTextChangedListener(textWatcher);
+        urineoutput.addTextChangedListener(textWatcher); 
+        cuf.addTextChangedListener(textWatcher); 
+        muf.addTextChangedListener(textWatcher);
         Global globalVariable = (Global) getApplicationContext();
         String user = "data1";
         if(globalVariable.getUser()==2)
@@ -56,9 +70,10 @@ public class fluidmenu extends AppCompatActivity {
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String value = "null";  value = dataSnapshot.getValue(String.class);
-                if (!Objects.equals(value, "null"))
+                String value = "null";  value = dataSnapshot.getValue(String.class).replaceAll("[^0-9?!.]","");
+                if (!Objects.equals(value, "null")){
                     prime.setText(value);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -109,8 +124,13 @@ public class fluidmenu extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
-                if (!Objects.equals(value, "null"))
-                    hco3.setText(value);
+                if (!Objects.equals(value, "null")) {
+                    if(value.contains(" ml")){
+                    hco3.setText(value.replace(" ml",""));
+                    }
+                    else
+                        hco3.setText(value);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -264,30 +284,48 @@ public class fluidmenu extends AppCompatActivity {
             }
         });
         totalgain.setOnClickListener(v -> {
-            int tgain = Integer.parseInt(prime.getText().toString());
+            int tgain=0;
+            if (!prime.getText().toString().equals(""))
+            tgain += Integer.parseInt(prime.getText().toString());
+            if (!blood.getText().toString().equals(""))
             tgain += Integer.parseInt(blood.getText().toString());
+            if (!fluids.getText().toString().equals(""))
             tgain += Integer.parseInt(fluids.getText().toString());
+            if (!diuretics.getText().toString().equals(""))
             tgain += Integer.parseInt(diuretics.getText().toString());
+            if (!hco3.getText().toString().equals(""))
             tgain += Integer.parseInt(hco3.getText().toString());
+            if (!cpg.getText().toString().equals(""))
             tgain += Integer.parseInt(cpg.getText().toString());
+            if (!drugs.getText().toString().equals(""))
             tgain += Integer.parseInt(drugs.getText().toString());
             if(tgain>0)
             totalgain.setText(String.valueOf(tgain));
 
         });
         totalloss.setOnClickListener(v -> {
-            int tgain = Integer.parseInt(pump.getText().toString());
+
+            int tgain = 0;
+            if (!pump.getText().toString().equals(""))
+            tgain += Integer.parseInt(pump.getText().toString());
+            if (!surgicalloss.getText().toString().equals(""))
             tgain += Integer.parseInt(surgicalloss.getText().toString());
+            if (!urineoutput.getText().toString().equals(""))
             tgain += Integer.parseInt(urineoutput.getText().toString());
+            if (!cuf.getText().toString().equals(""))
             tgain += Integer.parseInt(cuf.getText().toString());
+            if (!muf.getText().toString().equals(""))
             tgain += Integer.parseInt(muf.getText().toString());
             if(tgain>0)
             totalloss.setText(String.valueOf(tgain));
 
         });
         totalfluid.setOnClickListener(v -> {
-            int tgain = Integer.parseInt(totalgain.getText().toString());
-            tgain -= Integer.parseInt(totalloss.getText().toString());
+            int tgain = 0;
+            if (!totalgain.getText().toString().equals(""))
+                tgain = Integer.parseInt(totalgain.getText().toString());
+            if (!totalloss.getText().toString().equals(""))
+                tgain -= Integer.parseInt(totalloss.getText().toString());
             if(tgain!=0)
             totalfluid.setText(String.valueOf(abs(tgain)));
             if(tgain>=0)
@@ -296,10 +334,7 @@ public class fluidmenu extends AppCompatActivity {
                 lossgain.setChecked(false);
         });
         submite.setOnClickListener(v -> {
-            Global globalVariable12 = (Global) fluidmenu.this.getApplicationContext();
             String user12 = "data1";
-            if (globalVariable12.getUser() == 2)
-                user12 = "data2";
             String value = prime.getText().toString();
             DatabaseReference rootRef12;
             rootRef12 = FirebaseDatabase.getInstance().getReference().child(user12);
@@ -412,4 +447,70 @@ public class fluidmenu extends AppCompatActivity {
             overridePendingTransition(0, 0);
         });
     }
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // get the content of both the edit text
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            int tgain1 = 0;
+            if (!pump.getText().toString().equals(""))
+                tgain1 += Integer.parseInt(pump.getText().toString());
+            if (!surgicalloss.getText().toString().equals(""))
+                tgain1 += Integer.parseInt(surgicalloss.getText().toString());
+            if (!urineoutput.getText().toString().equals(""))
+                tgain1 += Integer.parseInt(urineoutput.getText().toString());
+            if (!cuf.getText().toString().equals(""))
+                tgain1 += Integer.parseInt(cuf.getText().toString());
+            if (!muf.getText().toString().equals(""))
+                tgain1 += Integer.parseInt(muf.getText().toString());
+            if(tgain1>0)
+                totalloss.setText(String.valueOf(tgain1));
+            int tgain=0;
+
+            if (!prime.getText().toString().equals("")) {
+                String value = "0";
+                if(prime.getText().toString().contains(" ml")){
+                    value = prime.getText().toString();
+                    value = value.replace(" ml","");
+                }
+                tgain += Integer.parseInt(value);
+
+            }
+            if (!blood.getText().toString().equals(""))
+                tgain += Integer.parseInt(blood.getText().toString());
+            if (!fluids.getText().toString().equals(""))
+                tgain += Integer.parseInt(fluids.getText().toString());
+            if (!diuretics.getText().toString().equals(""))
+                tgain += Integer.parseInt(diuretics.getText().toString());
+            if (!hco3.getText().toString().equals(""))
+                tgain += Integer.parseInt(hco3.getText().toString());
+            if (!cpg.getText().toString().equals(""))
+                tgain += Integer.parseInt(cpg.getText().toString());
+            if (!drugs.getText().toString().equals(""))
+                tgain += Integer.parseInt(drugs.getText().toString());
+            if(tgain>0)
+                totalgain.setText(String.valueOf(tgain));
+            int tgain2 = 0;
+            if (!totalgain.getText().toString().equals(""))
+                tgain2 = Integer.parseInt(totalgain.getText().toString());
+            if (!totalloss.getText().toString().equals(""))
+                tgain2 -= Integer.parseInt(totalloss.getText().toString());
+            if(tgain2!=0)
+                totalfluid.setText(String.valueOf(abs(tgain2)));
+            if(tgain2>=0)
+                lossgain.setChecked(true);
+            if(tgain2<0)
+                lossgain.setChecked(false);
+        }
+    };
+
 }

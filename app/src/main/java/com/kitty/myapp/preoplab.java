@@ -45,7 +45,7 @@ public class preoplab extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    hb.setHint(value);
+                    hb.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -58,7 +58,7 @@ public class preoplab extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
                 if (!Objects.equals(value, "null"))
-                urea.setHint(value);
+                urea.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -72,7 +72,7 @@ public class preoplab extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    screat.setHint(value);
+                    screat.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -86,7 +86,7 @@ public class preoplab extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    srbill.setHint(value);
+                    srbill.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -100,7 +100,7 @@ public class preoplab extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    rbs.setHint(value);
+                    rbs.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -114,7 +114,7 @@ public class preoplab extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    bloodgroup.setHint(value);
+                    bloodgroup.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -128,7 +128,7 @@ public class preoplab extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    circhb.setHint(value);
+                    circhb.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -142,7 +142,7 @@ public class preoplab extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    others.setHint(value);
+                    others.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

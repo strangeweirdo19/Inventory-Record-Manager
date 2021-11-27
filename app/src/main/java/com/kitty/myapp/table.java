@@ -128,7 +128,7 @@ public class table extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
                         if (!Objects.equals(value, "null")){
-                            events.setHint(value);
+                            events.setText(value);
                         }
                     }
                     @Override
@@ -143,7 +143,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            pressure.setHint(value);
+                            pressure.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -157,7 +157,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            flows.setHint(value);
+                            flows.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -171,7 +171,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            fio2.setHint(value);
+                            fio2.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -185,7 +185,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            temp.setHint(value);
+                            temp.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -199,7 +199,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            ph.setHint(value);
+                            ph.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -213,7 +213,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            o2.setHint(value);
+                            o2.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -227,7 +227,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            pco2.setHint(value);
+                            pco2.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -241,7 +241,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            be.setHint(value);
+                            be.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -255,7 +255,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            hb.setHint(value);
+                            hb.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -269,7 +269,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            na.setHint(value);
+                            na.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -283,7 +283,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            k.setHint(value);
+                            k.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -297,7 +297,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            act.setHint(value);
+                            act.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -311,7 +311,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            rbs.setHint(value);
+                            rbs.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -325,7 +325,7 @@ public class table extends AppCompatActivity {
                         String value = "null";  value = dataSnapshot.getValue(String.class);
 
                         if (!Objects.equals(value, "null"))
-                            lac.setHint(value);
+                            lac.setText(value);
                     }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {

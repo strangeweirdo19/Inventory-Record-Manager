@@ -3,6 +3,8 @@ package com.kitty.myapp;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,6 +49,8 @@ public class diagnosis extends AppCompatActivity {
         perfusionist = findViewById(R.id.perfusionist);
         anaesthesiologist = findViewById(R.id.anslogist);
         clear = findViewById(R.id.cleard);
+        height.addTextChangedListener(textWatcher);
+        weight.addTextChangedListener(textWatcher);
         Global globalVariable = (Global) getApplicationContext();
         String user = "data1";
         if(globalVariable.getUser()==2)
@@ -59,7 +63,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    preopdiag.setHint(value);
+                    preopdiag.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -74,7 +78,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    procedure.setHint(value);
+                    procedure.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -122,7 +126,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    zerofive.setHint(value);
+                    zerofive.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -137,7 +141,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    one.setHint(value);
+                    one.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -152,7 +156,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    onefive.setHint(value);
+                    onefive.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -167,7 +171,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    oneeight.setHint(value);
+                    oneeight.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -182,7 +186,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    two.setHint(value);
+                    two.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -197,7 +201,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    twotwo.setHint(value);
+                    twotwo.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -212,7 +216,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    twofour.setHint(value);
+                    twofour.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -227,7 +231,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    surgeon.setHint(value);
+                    surgeon.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -242,7 +246,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    perfusionist.setHint(value);
+                    perfusionist.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -257,7 +261,7 @@ public class diagnosis extends AppCompatActivity {
                 value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    anaesthesiologist.setHint(value);
+                    anaesthesiologist.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -364,5 +368,33 @@ public class diagnosis extends AppCompatActivity {
             overridePendingTransition(0, 0);
         });
     }
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+            double ht = 0,wt=0,bsa;
+            String value1 = height.getText().toString();
+            if(!(value1.equals("")))
+                ht = Double.parseDouble(value1);
+            value1 = weight.getText().toString();
+            if(!(value1.equals("")))
+                wt = Double.parseDouble(value1);
+            bsa = (ht*wt/3600);
+            if((bsa!=0)&&(bsa!=1)){
+                zerofive.setText(df2.format(bsa*0.5));
+                one.setText(df2.format(bsa));
+                onefive.setText(df2.format(bsa*1.5));
+                oneeight.setText(df2.format(bsa*1.8));
+                two.setText(df2.format(bsa*2));
+                twotwo.setText(df2.format(bsa*2.2));
+                twofour.setText(df2.format(bsa*2.4));
+            }
+        }
+    };
 
 }

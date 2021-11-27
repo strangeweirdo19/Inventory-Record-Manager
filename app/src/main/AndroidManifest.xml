@@ -69,6 +69,12 @@
         <activity
             android:name="com.kitty.myapp.others"
             android:label="Information" />
+        <activity
+            android:name="com.kitty.myapp.stock"
+            android:label="Inventory" />
+        <activity
+            android:name="com.kitty.myapp.stock1"
+            android:label="Inventory" />
 
     </application>
 

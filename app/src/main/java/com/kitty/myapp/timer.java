@@ -4,9 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -30,11 +36,17 @@ public class timer extends AppCompatActivity {
     Button submit,clear;
     TextView blood1;
     String cpb, cpb1;
+    Button add, remove, select;
+    EditText cpg;
+    TableLayout table;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
+        add = findViewById(R.id.add);
+        cpg = findViewById(R.id.cpg);
+        table = findViewById(R.id.table);
         blood1 =  findViewById(R.id.textView81);
         cpbon = findViewById(R.id.cpbon);
         cpboff = findViewById(R.id.cpboff);
@@ -48,12 +60,144 @@ public class timer extends AppCompatActivity {
         submit = findViewById(R.id.subp);
         clear = findViewById(R.id.clearp);
         blood = findViewById(R.id.toggleButton23);
+        remove = findViewById(R.id.cleard);
+        select = findViewById(R.id.selectmode);
+        cpbon.addTextChangedListener(textWatcher);
+        aoxclamp.addTextChangedListener(textWatcher1);
+        tcaon.addTextChangedListener(textWatcher2);
+        cpboff.addTextChangedListener(textWatcher);
+        aoxclampoff.addTextChangedListener(textWatcher1);
+        tcaoff.addTextChangedListener(textWatcher2);
         Global globalVariable = (Global) getApplicationContext();
         String user = "data1";
+        if (globalVariable.getUser() == 2)
+            user = "data2";
+        DatabaseReference rootRef;
+        DatabaseReference rootRef1 = FirebaseDatabase.getInstance().getReference().child(user).child("bloodcount");
+        rootRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String value = "null";
+                value = dataSnapshot.getValue(String.class);
+                Global globalVariable = (Global) getApplicationContext();
+                String user = "data1";
+                if (globalVariable.getUser() == 2)
+                    user = "data2";
+                DatabaseReference rootRef1;
+                for (int i = 0; i < Integer.parseInt(value) + 1; i++) {
+                    TableRow row = new TableRow(getApplicationContext());
+                    TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                    row.setLayoutParams(lp);
+                    TextView time = new TextView(getApplicationContext());
+                    TextView qty = new TextView(getApplicationContext());
+                    String a = Integer.toString(i);
+                    rootRef1 = FirebaseDatabase.getInstance().getReference().child(user).child("bloodtable").child(a).child("time");
+                    rootRef1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String value = "null";
+                            value = dataSnapshot.getValue(String.class);
+
+                            if (!Objects.equals(value, "null")) {
+                                time.setText(value);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(timer.this, "not found", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    rootRef1 = FirebaseDatabase.getInstance().getReference().child(user).child("bloodtable").child(a).child("unit");
+                    rootRef1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String value = "null";
+                            value = dataSnapshot.getValue(String.class);
+
+                            if (!Objects.equals(value, "null")) {
+                                qty.setText(value);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(timer.this, "not found", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    time.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+                    time.setGravity(Gravity.CENTER);
+                    qty.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+                    qty.setGravity(Gravity.CENTER);
+                    row.addView(time);
+                    row.addView(qty);
+                    table.addView(row);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(timer.this, "count not found", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        add.setOnClickListener(v -> {
+            Global globalVariable12 = (Global) getApplicationContext();
+            String user12 = "data1";
+            if (globalVariable12.getUser() == 2)
+                user12 = "data2";
+            DatabaseReference rootRef12 = FirebaseDatabase.getInstance().getReference().child(user12).child("bloodcount");
+            rootRef12.get().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    String a = String.valueOf(task.getResult().getValue());
+                    Global globalVariable121 = (Global) getApplicationContext();
+                    String usera = "data1";
+                    if (globalVariable121.getUser() == 2)
+                        usera = "data2";
+                    DatabaseReference rootRef121 = FirebaseDatabase.getInstance().getReference().child(usera).child("bloodcount");
+                    String value = select.getText().toString();
+                    String value1 = cpg.getText().toString();
+                    DatabaseReference rootRefa = FirebaseDatabase.getInstance().getReference().child(usera).child("bloodtable");
+                    if ((!(value.equals("Select time"))) && (!(value1.equals("")))) {
+                        table.invalidate();
+                        table.removeViews(0, table.getChildCount());
+                        a = Integer.toString(Integer.parseInt(a) + 1);
+                        rootRef121.setValue(a);
+                        value = value.replace(":", "-");
+                        rootRefa.child(a).child("time").setValue(value);
+                        rootRefa.child(a).child("unit").setValue(value1);
+                    }
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
+                }
+            });
+
+        });
+        remove.setOnClickListener(v -> {
+            Global globalVariable12 = (Global) getApplicationContext();
+            String user12 = "data1";
+            if (globalVariable12.getUser() == 2)
+                user12 = "data2";
+            DatabaseReference rootRefa = FirebaseDatabase.getInstance().getReference().child(user12).child("bloodtable");
+            rootRefa.getRef().removeValue();
+            rootRefa = FirebaseDatabase.getInstance().getReference().child(user12).child("bloodcount");
+            rootRefa.setValue("0");
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(getIntent());
+            overridePendingTransition(0, 0);
+        });
+
+        globalVariable = (Global) getApplicationContext();
+        user = "data1";
         if(globalVariable.getUser()==2)
             user = "data2";
 
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference().child(user).child("blood");
+        rootRef = FirebaseDatabase.getInstance().getReference().child(user).child("blood");
         rootRef.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
             @Override
@@ -61,10 +205,14 @@ public class timer extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    if(Objects.equals(value, "YES"))
-                        blood1.setText("Blood Added(Yes)");
-                if(Objects.equals(value, "NO"))
-                    blood1.setText("Blood Added(No)");
+                    if(Objects.equals(value, "YES")){
+                        blood.setText("Blood Added(Yes)");
+                         blood.setChecked(true);
+                    }
+                if(Objects.equals(value, "NO")) {
+                    blood.setText("Blood Added(No)");
+                    blood.setChecked(false);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -78,7 +226,7 @@ public class timer extends AppCompatActivity {
                 String value = "null";
                 value = dataSnapshot.getValue(String.class);
                 if (!Objects.equals(value, "null")){
-                    cpbon.setHint(value);
+                    cpbon.setText(value);
                 }
             }
             @Override
@@ -92,7 +240,7 @@ public class timer extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
                 if (!Objects.equals(value, "null")){
-                    cpboff.setHint(value);
+                    cpboff.setText(value);
                 }
             }
             @Override
@@ -107,7 +255,7 @@ public class timer extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    totalcpb.setHint(value);
+                    totalcpb.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -121,7 +269,7 @@ public class timer extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    aoxclamp.setHint(value);
+                    aoxclamp.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -135,7 +283,7 @@ public class timer extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    aoxclampoff.setHint(value);
+                    aoxclampoff.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -149,7 +297,7 @@ public class timer extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    aoctotal.setHint(value);
+                    aoctotal.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -163,7 +311,7 @@ public class timer extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    tcaon.setHint(value);
+                    tcaon.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -177,7 +325,7 @@ public class timer extends AppCompatActivity {
                 String value = "null";  value = dataSnapshot.getValue(String.class);
 
                 if (!Objects.equals(value, "null"))
-                    tcaoff.setHint(value);
+                    tcaoff.setText(value);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -196,26 +344,16 @@ public class timer extends AppCompatActivity {
             value = cpbon.getText().toString();
             if(!(value.equals(""))){
                 rootRef12.child("cpbon").setValue(value);
-                cpb = value;
             }
             value = "null";
             value = cpboff.getText().toString();
             if(!(value.equals(""))){
                 rootRef12.child("cpboff").setValue(value);
-                cpb1 = value;
             }
             value = "null";
             value = totalcpb.getText().toString();
             if(!(value.equals("")))
                 rootRef12.child("totalcpb").setValue(value);
-            else{
-                int val = Integer.parseInt(cpb) + Integer.parseInt(cpb1);
-                value = String.valueOf(val);
-                rootRef12.child("totalcpb").setValue(value);
-                cpb = "0";
-                cpb1 = "0";
-
-            }
             value = "null";
             value = aoxclamp.getText().toString();
             if(!(value.equals(""))){
@@ -232,13 +370,6 @@ public class timer extends AppCompatActivity {
             value = aoctotal.getText().toString();
             if(!(value.equals("")))
                 rootRef12.child("aoctotal").setValue(value);
-            else{
-                int val = Integer.parseInt(cpb) + Integer.parseInt(cpb1);
-                value = String.valueOf(val);
-                rootRef12.child("aoctotal").setValue(value);
-                cpb = "0";
-                cpb1 = "0";
-            }
             value = "null";
             value = tcaon.getText().toString();
             if(!(value.equals(""))){
@@ -256,13 +387,6 @@ public class timer extends AppCompatActivity {
             if(!(value.equals(""))){
                 rootRef12.child("tcattl").setValue(value);
             }
-            else{
-                int val = Integer.parseInt(cpb) + Integer.parseInt(cpb1);
-                value = String.valueOf(val);
-                rootRef12.child("totalcpb").setValue(value);
-                cpb = "0";
-                cpb1 = "0";
-            }
             value = "null";
             finish();
             overridePendingTransition(0, 0);
@@ -274,17 +398,19 @@ public class timer extends AppCompatActivity {
             String user1 = "data1";
             if(globalVariable1.getUser()==2)
                 user1 = "data2";
-            DatabaseReference rootRef1 = FirebaseDatabase.getInstance().getReference().child(user1);
-            rootRef1.child("blood").setValue("null");
-            rootRef1.child("cpbon").setValue("null");
-            rootRef1.child("cpboff").setValue("null");
-            rootRef1.child("totalcpb").setValue("null");
-            rootRef1.child("aoxclamp").setValue("null");
-            rootRef1.child("aoxclampoff").setValue("null");
-            rootRef1.child("aoctotal").setValue("null");
-            rootRef1.child("tcaon").setValue("null");
-            rootRef1.child("tcaoff").setValue("null");
-            rootRef1.child("tcattl").setValue("null");
+            DatabaseReference rootRef3 = FirebaseDatabase.getInstance().getReference().child(user1);
+            rootRef3.child("blood").setValue("null");
+            rootRef3.child("cpbon").setValue("null");
+            rootRef3.child("cpboff").setValue("null");
+            rootRef3.child("totalcpb").setValue("null");
+            rootRef3.child("aoxclamp").setValue("null");
+            rootRef3.child("aoxclampoff").setValue("null");
+            rootRef3.child("aoctotal").setValue("null");
+            rootRef3.child("tcaon").setValue("null");
+            rootRef3.child("tcaoff").setValue("null");
+            rootRef3.child("tcattl").setValue("null");
+            rootRef3.child("bloodcount").setValue("0");
+            rootRef3.child("bloodtable").removeValue();
             finish();
             overridePendingTransition(0, 0);
             startActivity(getIntent());
@@ -293,104 +419,206 @@ public class timer extends AppCompatActivity {
         totalcpb.setOnClickListener(v -> {
             String time1 = cpbon.getText().toString();
             String time2 = cpboff.getText().toString();
-            String[] out1 = time1.split(" ");
-            String[] out = out1[0].split(":");
-            int min1,hr1,thr,tmin;
-            min1 = Integer.parseInt(out[1]);
-            hr1 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr1 += 12;
-            out1 = time2.split(" ");
-            out = out1[0].split(":");
-            int min2,hr2;
-            min2 = Integer.parseInt(out[1]);
-            hr2 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr2 += 12;
-            thr = hr2 - hr1;
-            tmin = min2 - min1;
-                if(tmin<0) {
+            if (!time1.equals("")&&!time2.equals("")) {
+                String[] out1 = time1.split(" ");
+                String[] out = out1[0].split(":");
+                int min1, hr1, thr, tmin;
+                min1 = Integer.parseInt(out[1]);
+                hr1 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr1 += 12;
+                out1 = time2.split(" ");
+                out = out1[0].split(":");
+                int min2, hr2;
+                min2 = Integer.parseInt(out[1]);
+                hr2 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr2 += 12;
+                thr = hr2 - hr1;
+                tmin = min2 - min1;
+                if (tmin < 0) {
                     tmin += 60;
                     thr--;
                 }
-            totalcpb.setText(thr +"Hrs "+ tmin +"Mins");
-        });
-        totalcpb.setOnClickListener(v -> {
-            String time1 = cpbon.getText().toString();
-            String time2 = cpboff.getText().toString();
-            String[] out1 = time1.split(" ");
-            String[] out = out1[0].split(":");
-            int min1,hr1,thr,tmin;
-            min1 = Integer.parseInt(out[1]);
-            hr1 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr1 += 12;
-            out1 = time2.split(" ");
-            out = out1[0].split(":");
-            int min2,hr2;
-            min2 = Integer.parseInt(out[1]);
-            hr2 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr2 += 12;
-            thr = Math.abs(hr2 - hr1);
-            tmin = min2 - min1;
-            if(tmin<0) {
-                tmin += 60;
-                thr--;
+                totalcpb.setText(thr + "Hrs " + tmin + "Mins");
             }
-            totalcpb.setText(thr +"Hrs "+ tmin +"Mins");
+            else
+                totalcpb.setText("");
         });
         aoctotal.setOnClickListener(v -> {
             String time1 = aoxclamp.getText().toString();
             String time2 = aoxclampoff.getText().toString();
-            String[] out1 = time1.split(" ");
-            String[] out = out1[0].split(":");
-            int min1,hr1,thr,tmin;
-            min1 = Integer.parseInt(out[1]);
-            hr1 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr1 += 12;
-            out1 = time2.split(" ");
-            out = out1[0].split(":");
-            int min2,hr2;
-            min2 = Integer.parseInt(out[1]);
-            hr2 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr2 += 12;
-            thr = Math.abs(hr2 - hr1);
-            tmin = min2 - min1;
-            if(tmin<0) {
-                tmin += 60;
-                thr--;
+            if (!time1.equals("")&&!time2.equals("")) {
+                String[] out1 = time1.split(" ");
+                String[] out = out1[0].split(":");
+                int min1, hr1, thr, tmin;
+                min1 = Integer.parseInt(out[1]);
+                hr1 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr1 += 12;
+                out1 = time2.split(" ");
+                out = out1[0].split(":");
+                int min2, hr2;
+                min2 = Integer.parseInt(out[1]);
+                hr2 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr2 += 12;
+                thr = Math.abs(hr2 - hr1);
+                tmin = min2 - min1;
+                if (tmin < 0) {
+                    tmin += 60;
+                    thr--;
+                }
+                aoctotal.setText(thr + "Hrs " + tmin + "Mins");
             }
-            aoctotal.setText(thr +"Hrs "+ tmin +"Mins");
+            else
+                aoctotal.setText("");
         });
         tcattl.setOnClickListener(v -> {
             String time1 = tcaon.getText().toString();
             String time2 = tcaoff.getText().toString();
-            String[] out1 = time1.split(" ");
-            String[] out = out1[0].split(":");
-            int min1,hr1,thr,tmin;
-            min1 = Integer.parseInt(out[1]);
-            hr1 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr1 += 12;
-            out1 = time2.split(" ");
-            out = out1[0].split(":");
-            int min2,hr2;
-            min2 = Integer.parseInt(out[1]);
-            hr2 = Integer.parseInt(out[0]);
-            if(out1[1].equals("PM"))
-                hr2 += 12;
-            thr = Math.abs(hr2 - hr1);
-            tmin = min2 - min1;
-            if(tmin<0) {
-                tmin += 60;
-                thr--;
+            if (!time1.equals("")&&!time2.equals("")) {
+                String[] out1 = time1.split(" ");
+                String[] out = out1[0].split(":");
+                int min1, hr1, thr, tmin;
+                min1 = Integer.parseInt(out[1]);
+                hr1 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr1 += 12;
+                out1 = time2.split(" ");
+                out = out1[0].split(":");
+                int min2, hr2;
+                min2 = Integer.parseInt(out[1]);
+                hr2 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr2 += 12;
+                thr = Math.abs(hr2 - hr1);
+                tmin = min2 - min1;
+                if (tmin < 0) {
+                    tmin += 60;
+                    thr--;
+                }
+                tcattl.setText(thr + "Hrs " + tmin + "Mins");
             }
-            tcattl.setText(thr +"Hrs "+ tmin +"Mins");
+            else
+                tcattl.setText("");
         });
     }
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+            String time1 = cpbon.getText().toString();
+            String time2 = cpboff.getText().toString();
+            if (!time1.equals("")&&!time2.equals("")) {
+                String[] out1 = time1.split(" ");
+                String[] out = out1[0].split(":");
+                int min1, hr1, thr, tmin;
+                min1 = Integer.parseInt(out[1]);
+                hr1 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr1 += 12;
+                out1 = time2.split(" ");
+                out = out1[0].split(":");
+                int min2, hr2;
+                min2 = Integer.parseInt(out[1]);
+                hr2 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr2 += 12;
+                thr = hr2 - hr1;
+                tmin = min2 - min1;
+                if (tmin < 0) {
+                    tmin += 60;
+                    thr--;
+                }
+                totalcpb.setText(thr + "Hrs " + tmin + "Mins");
+            }
+            else
+                totalcpb.setText("");
+
+        }
+    };
+    TextWatcher textWatcher1 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+            String time1 = aoxclamp.getText().toString();
+            String time2 = aoxclampoff.getText().toString();
+            if (!time1.equals("")&&!time2.equals("")) {
+                String[] out1 = time1.split(" ");
+                String[] out = out1[0].split(":");
+                int min1, hr1, thr, tmin;
+                min1 = Integer.parseInt(out[1]);
+                hr1 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr1 += 12;
+                out1 = time2.split(" ");
+                out = out1[0].split(":");
+                int min2, hr2;
+                min2 = Integer.parseInt(out[1]);
+                hr2 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr2 += 12;
+                thr = Math.abs(hr2 - hr1);
+                tmin = min2 - min1;
+                if (tmin < 0) {
+                    tmin += 60;
+                    thr--;
+                }
+                aoctotal.setText(thr + "Hrs " + tmin + "Mins");
+            }
+            else
+                aoctotal.setText("");
+        }
+    };
+    TextWatcher textWatcher2 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+            String time1 = tcaon.getText().toString();
+            String time2 = tcaoff.getText().toString();
+            if (!time1.equals("")&&!time2.equals("")) {
+                String[] out1 = time1.split(" ");
+                String[] out = out1[0].split(":");
+                int min1, hr1, thr, tmin;
+                min1 = Integer.parseInt(out[1]);
+                hr1 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr1 += 12;
+                out1 = time2.split(" ");
+                out = out1[0].split(":");
+                int min2, hr2;
+                min2 = Integer.parseInt(out[1]);
+                hr2 = Integer.parseInt(out[0]);
+                if (out1[1].equals("PM"))
+                    hr2 += 12;
+                thr = Math.abs(hr2 - hr1);
+                tmin = min2 - min1;
+                if (tmin < 0) {
+                    tmin += 60;
+                    thr--;
+                }
+                tcattl.setText(thr + "Hrs " + tmin + "Mins");
+            }
+            else
+                tcattl.setText("");
+        }
+    };
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void showTimePickerDialogon(View view) {
         final java.util.Calendar cldr = java.util.Calendar.getInstance();
@@ -521,6 +749,28 @@ public class timer extends AppCompatActivity {
                         sHour1 = ("0" + sHour1);
                     }
                     tcaoff.setText(sHour1 + ":" + sMinute1+" "+tm);
+                }, hour, minutes, false);
+        picker.show();
+    }
+    public void showTimePickerDialog(View view) {
+        final java.util.Calendar cldr = java.util.Calendar.getInstance();
+        int hour = cldr.get(java.util.Calendar.HOUR_OF_DAY);
+        int minutes = cldr.get(Calendar.MINUTE);
+        TimePickerDialog picker;
+        picker = new TimePickerDialog(timer.this,
+                (tp, sHour, sMinute) -> {
+                    String sMinute1 = String.valueOf(sMinute), sHour1 = String.valueOf(sHour),tm = "AM";
+                    if (sHour - 12 > 0) {
+                        tm = "PM";
+                        sHour1 = String.valueOf(sHour - 12);
+                    }
+                    if (sMinute / 10 == 0) {
+                        sMinute1 = ("0" + sMinute1);
+                    }
+                    if (sHour / 10 == 0) {
+                        sHour1 = ("0" + sHour1);
+                    }
+                    select.setText(sHour1 + ":" + sMinute1+" "+tm);
                 }, hour, minutes, false);
         picker.show();
     }
